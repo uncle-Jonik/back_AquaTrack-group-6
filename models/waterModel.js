@@ -1,5 +1,8 @@
 import { model, Schema } from "mongoose";
 
+import { localDate } from "../services/waterServices.js";
+import { localTime } from "../services/waterServices.js";
+
 const waterSchema = Schema(
   {
     //
@@ -8,10 +11,9 @@ const waterSchema = Schema(
     //   ref: "User",
     //   required: true,
     // },
-    date: { type: Date },
-    waterRate: { type: Number, default: 0 },
-    process: { type: Number, default: 0 },
-    complete: { type: Boolean, default: false },
+    localDate: { type: String, default: localDate() },
+    localTime: { type: String, default: localTime() },
+    waterRate: { type: Number, require: true },
   },
   {
     timestamps: true,
