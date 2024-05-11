@@ -1,3 +1,5 @@
+import { Water } from "../models/waterModel.js";
+
 export const localDate = () => {
   const milliseconds = Date.now();
   const date = new Date(milliseconds);
@@ -16,4 +18,10 @@ export const localTime = () => {
     .join(":");
 
   return timeString;
+};
+
+export const addWaterService = async (waterData) => {
+  const waterRecord = await Water.create(waterData);
+
+  return waterRecord;
 };

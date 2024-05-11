@@ -6,8 +6,9 @@ export const checkAddWaterRate = (req, res, next) => {
     const { value, err } = checkWaterValidator(req.body);
     if (err) throw HttpError(400, "Bad Request", err);
 
-    req.body = value;
+    const dateNormalizer = new Date(value.localDate);
 
+    req.body = { ...value, localDate: dateNormalizer.toLocaleDateString() };
     next();
   } catch (e) {
     next(e);

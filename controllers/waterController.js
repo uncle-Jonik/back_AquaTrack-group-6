@@ -1,8 +1,16 @@
-export const addWaterController = (req, res, next) => {
-  try {
-    console.log(req.body);
+import { addWaterService } from "../services/waterServices.js";
 
-    res.status(201).json("a");
+export const addWaterController = async (req, res, next) => {
+  try {
+    const waterRecord = await addWaterService(req.body);
+
+    res.status(201).json({
+      waterRecord: {
+        date: waterRecord.localDate,
+        time: waterRecord.localTime,
+        value: waterRecord.waterValue,
+      },
+    });
   } catch (e) {
     next(e);
   }
