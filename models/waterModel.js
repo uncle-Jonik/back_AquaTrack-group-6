@@ -13,7 +13,7 @@ const waterSchema = Schema(
     // },
     localDate: { type: String, default: localDate() },
     localTime: { type: String, default: localTime() },
-    waterRate: { type: Number, require: true },
+    waterValue: { type: Number, require: true },
   },
   {
     timestamps: true,
