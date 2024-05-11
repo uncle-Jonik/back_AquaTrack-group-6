@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 
 import { router as pingRouter } from "./routes/pingRoute.js";
 import { errorGlobalHandler } from "./utils/errorGlobalHandler.js";
+import { usersRouter } from "./routes/userRoute.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(express.static("public"));
  */
 const pathPrefix = "/api";
 app.use(`${pathPrefix}/`, pingRouter);
+app.use(`${pathPrefix}/users`, usersRouter);
 
 // not-found-route
 app.all("*", (req, res) => {
