@@ -1,5 +1,5 @@
-import { model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import { model, Schema } from "mongoose";
 
 import { userGender } from "../constants/userGender.js";
 
@@ -60,9 +60,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-
 userSchema.methods.checkUserPassword = (candidate, passwordHash) =>
   bcrypt.compare(candidate, passwordHash);
 
 export const User = model("User", userSchema);
-

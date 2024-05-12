@@ -5,7 +5,6 @@ import { localTime } from "../services/waterServices.js";
 
 const waterSchema = Schema(
   {
-    //
     // owner: {
     //   type: Schema.Types.ObjectId,
     //   ref: "User",

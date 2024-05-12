@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 import { HttpError } from "../utils/HttpError.js";
-import { checkWaterValidator } from "../schemas/waterValueValidator.js";
+import { checkWaterValidator } from "../schemas/waterValidator.js";
 import { dateNormalizer } from "../services/waterServices.js";
 import { getWaterRecordIdService } from "../services/waterServices.js";
 

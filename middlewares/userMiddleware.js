@@ -1,16 +1,12 @@
-import { ImageService } from "../services/imageServices.js";
-import { checkToken } from "../services/jwtServices.js";
-import {
-  checkUserExistsService,
-  getUserByIdService,
-} from "../services/userServices.js";
 import { HttpError } from "../utils/HttpError.js";
 import { catchAsync } from "../utils/catchAsync.js";
-import {
-  createUserDataValidator,
-  logInUserDataValidator,
-  updateUserValidator,
-} from "../utils/userValidator.js";
+import { ImageService } from "../services/imageServices.js";
+import { checkToken } from "../services/jwtServices.js";
+import { checkUserExistsService } from "../services/userServices.js";
+import { getUserByIdService } from "../services/userServices.js";
+import { createUserDataValidator } from "../schemas/userValidator.js";
+import { logInUserDataValidator } from "../schemas/userValidator.js";
+import { updateUserValidator } from "../schemas/userValidator.js";
 
 export const checkCreateUserData = catchAsync(async (req, res, next) => {
   const { value, errors } = createUserDataValidator(req.body);
