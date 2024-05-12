@@ -20,6 +20,12 @@ export const localTime = () => {
   return timeString;
 };
 
+export const dateNormalizer = (dateValue) => {
+  const arr = dateValue.split(/[\\/.\-]/).join(".");
+
+  return arr;
+};
+
 export const addWaterService = async (waterData) => {
   const waterRecord = await Water.create(waterData);
 
