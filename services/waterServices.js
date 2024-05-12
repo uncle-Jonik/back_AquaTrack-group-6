@@ -33,13 +33,21 @@ export const addWaterService = async (waterData) => {
 };
 
 export const getWaterRecordIdService = async (id) => {
-  const waterData = await Water.findById(id);
+  const waterRecord = await Water.findById(id);
 
-  return waterData;
+  return waterRecord;
 };
 
 export const deleteWaterRecordIdService = async (id) => {
   const waterData = await Water.findByIdAndDelete(id);
 
   return waterData;
+};
+
+export const updateWaterRecordIdService = async (id, waterData) => {
+  const waterRecord = await Water.findByIdAndUpdate(id, waterData, {
+    new: true,
+  });
+
+  return waterRecord;
 };

@@ -5,7 +5,7 @@ import { checkWaterValidator } from "../schemas/waterValueValidator.js";
 import { dateNormalizer } from "../services/waterServices.js";
 import { getWaterRecordIdService } from "../services/waterServices.js";
 
-export const checkAddWaterRateMiddleware = (req, res, next) => {
+export const checkWaterDataMiddleware = (req, res, next) => {
   try {
     const { value, err } = checkWaterValidator(req.body);
     if (err) throw HttpError(400, "Bad Request", err);
