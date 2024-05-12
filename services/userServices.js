@@ -2,6 +2,7 @@ import e from 'express';
 import { User } from '../models/userModel.js';
 import HttpError from '../utils/HttpError.js';
 import { signToken } from './jwtServices.js';
+import { ImageService } from './imageServices.js';
 
 export const checkUserExistsService = (filter) => {
     return User.exists(filter);
@@ -54,11 +55,18 @@ export const logoutUserService = async (userId) => {
     await user.save();
 };
 
-export const updateUserService = async (userData, userId) => {
+export const updateUserService = async (userData, user, file, userId) => {
+    if (file) {
+        user.avatar = await ImageService.saveImage(file, userId, {
+            maxFileSize: 2,
+        }, "public",
+            "avatars"
+        )
+    }
 
-    const updatedUser = await Contact.findByIdAndUpdate(contact.id, body, {
-        new: true,
+    Object.keys(userData).forEach((key) => {
+        user[key] = userData[key];
     });
 
-    return updatedContact;
+    return user.save();
 };

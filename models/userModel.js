@@ -33,16 +33,16 @@ const userSchema = Schema(
       type: String,
     },
     weight: {
-      type: Number,
+      type: String,
       default: null,
     },
     sportsActivity: {
-      type: Number,
+      type: String,
       default: null,
     },
     waterRate: {
-      type: Number,
-      default: 1.5,
+      type: String,
+      default: "1.5",
     },
   },
   {

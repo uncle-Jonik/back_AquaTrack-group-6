@@ -1,3 +1,4 @@
+import { ImageService } from "../services/imageServices.js";
 import { checkToken } from "../services/jwtServices.js";
 import { checkUserExistsService, getUserByIdService } from "../services/userServices.js";
 import HttpError from "../utils/HttpError.js";
@@ -54,23 +55,10 @@ export const checkUpdateUserData = (req, res, next) => {
         throw HttpError(400, "Invalid user data", errors);
     }
 
-    if (Object.keys(value).length === 0) {
-        throw HttpError(400, "Body must have at least one field");
-    }
 
     next();
 };
 
-export const uploadPhoto = (req, res, next) => {
-    if (req.file) {
+export const uploadAvatar = ImageService.initUploadImageMiddleware("avatar");
 
-        user.avatarURL = await ImageService.saveImage(file, {
-            maxFileSize: 2,
-            width: 250,
-            height: 250
-        }, "public",
-            "avatars"
-        )
-    }
 
-}

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { checkCreateUserData, checkLogInData, checkUpdateUserData, protect } from "../middlewares/userMiddleware.js";
+import { checkCreateUserData, checkLogInData, checkUpdateUserData, protect, uploadAvatar } from "../middlewares/userMiddleware.js";
 import { createUser, currentUser, loginUser, logoutUser, updateUser } from "../controllers/userController.js";
 
 export const usersRouter = Router();
@@ -17,6 +17,6 @@ usersRouter.put(
     "/current",
     protect,
     checkUpdateUserData,
-    uploadPhoto,
+    uploadAvatar,
     updateUser
 );

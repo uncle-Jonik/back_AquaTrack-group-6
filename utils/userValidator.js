@@ -28,10 +28,10 @@ export const updateUserValidator = joiValidator((data) =>
         .keys({
             name: Joi.string().min(2).max(30),
             email: Joi.string().email(),
-            gender: Joi.string().valid(...Object.values(userGender)).required(),
-            weight: Joi.number().min(1).max(500),
-            sportsActivity: Joi.number(),
-            waterRate: Joi.number(),
+            gender: Joi.string().valid(...Object.values(userGender)),
+            weight: Joi.string(),
+            sportsActivity: Joi.string(),
+            waterRate: Joi.string(),
         })
         .validate(data)
 );
