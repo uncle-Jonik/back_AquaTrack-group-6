@@ -1,6 +1,6 @@
 import path from "path";
 import Jimp from "jimp";
-import HttpError from "../utils/HttpError.js";
+import {HttpError} from "../utils/HttpError.js";
 import * as fse from "fs-extra"
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
