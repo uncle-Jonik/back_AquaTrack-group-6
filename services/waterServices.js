@@ -28,7 +28,9 @@ export const dateNormalizer = (dateValue) => {
 
 //=================================================================================
 export const addWaterService = async (waterData, owner) => {
-  const waterRecord = await Water.create({ ...waterData, owner });
+  const localMonth = waterData.localDate.slice(3);
+
+  const waterRecord = await Water.create({ ...waterData, localMonth, owner });
 
   return waterRecord;
 };
@@ -62,4 +64,11 @@ export const getDayWaterService = async (date, owner) => {
   return allWaterRecord;
 };
 
-export const getMonthWaterService = async (date, owner) => {};
+export const getMonthWaterService = async (date, owner) => {
+  const allWaterRecord = await Water.find({
+    owner: owner.id,
+    localMonth: date.localDate.slice(3),
+  });
+
+  return allWaterRecord;
+};

@@ -10,6 +10,7 @@ const waterSchema = Schema(
       ref: "User",
       required: true,
     },
+    localMonth: { type: String },
     localDate: { type: String, default: () => localDate() },
     localTime: { type: String, default: () => localTime() },
     waterValue: { type: Number, require: true },

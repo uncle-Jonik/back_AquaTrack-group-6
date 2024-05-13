@@ -12,6 +12,7 @@ export const addWaterController = async (req, res, next) => {
       msg: "CREATED!",
       waterRecord: {
         id: waterRecord.id,
+        localMonth: waterRecord.localMonth,
         localDate: waterRecord.localDate,
         localTime: waterRecord.localTime,
         waterValue: waterRecord.waterValue,
@@ -31,6 +32,7 @@ export const deleteWaterController = async (req, res, next) => {
       msg: "DELETED!",
       waterRecord: {
         id: waterRecord.id,
+        localMonth: waterRecord.localMonth,
         localDate: waterRecord.localDate,
         localTime: waterRecord.localTime,
         waterValue: waterRecord.waterValue,
@@ -53,6 +55,7 @@ export const updateWaterController = async (req, res, next) => {
       msg: "UPDATED!",
       waterRecord: {
         id: waterRecord.id,
+        localMonth: waterRecord.localMonth,
         localDate: waterRecord.localDate,
         localTime: waterRecord.localTime,
         waterValue: waterRecord.waterValue,
@@ -79,11 +82,11 @@ export const getDayWaterController = async (req, res, next) => {
 
 export const getMonthWaterController = async (req, res, next) => {
   try {
-    const allWaterRecord = await getMonthWaterService();
+    const allWaterRecord = await getMonthWaterService(req.body, req.user);
 
     res.status(200).json({
       msg: "GETED!",
-      waterRecord: {},
+      waterRecord: allWaterRecord,
     });
   } catch (e) {
     next(e);
