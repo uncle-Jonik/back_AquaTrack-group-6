@@ -1,4 +1,5 @@
 import { Water } from "../models/waterModel.js";
+import { HttpError } from "../utils/HttpError.js";
 
 export const localDate = () => {
   const milliseconds = Date.now();
@@ -26,8 +27,9 @@ export const dateNormalizer = (dateValue) => {
   return arr;
 };
 
-export const addWaterService = async (waterData) => {
-  const waterRecord = await Water.create(waterData);
+//=================================================================================
+export const addWaterService = async (waterData, owner) => {
+  const waterRecord = await Water.create({ ...waterData, owner });
 
   return waterRecord;
 };

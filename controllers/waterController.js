@@ -4,15 +4,16 @@ import { deleteWaterRecordIdService } from "../services/waterServices.js";
 
 export const addWaterController = async (req, res, next) => {
   try {
-    const waterRecord = await addWaterService(req.body);
+    const waterRecord = await addWaterService(req.body, req.user);
 
     res.status(201).json({
       msg: "CREATED!",
       waterRecord: {
         id: waterRecord.id,
-        date: waterRecord.localDate,
-        time: waterRecord.localTime,
-        value: waterRecord.waterValue,
+        localDate: waterRecord.localDate,
+        localTime: waterRecord.localTime,
+        waterValue: waterRecord.waterValue,
+        owner: waterRecord.owner,
       },
     });
   } catch (e) {
@@ -28,9 +29,10 @@ export const deleteWaterController = async (req, res, next) => {
       msg: "DELETED!",
       waterRecord: {
         id: waterRecord.id,
-        date: waterRecord.localDate,
-        time: waterRecord.localTime,
-        value: waterRecord.waterValue,
+        localDate: waterRecord.localDate,
+        localTime: waterRecord.localTime,
+        waterValue: waterRecord.waterValue,
+        owner: waterRecord.owner,
       },
     });
   } catch (e) {
@@ -49,9 +51,10 @@ export const updateWaterController = async (req, res, next) => {
       msg: "UPDATED!",
       waterRecord: {
         id: waterRecord.id,
-        date: waterRecord.localDate,
-        time: waterRecord.localTime,
-        value: waterRecord.waterValue,
+        localDate: waterRecord.localDate,
+        localTime: waterRecord.localTime,
+        waterValue: waterRecord.waterValue,
+        owner: waterRecord.owner,
       },
     });
   } catch (e) {

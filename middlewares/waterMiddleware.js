@@ -29,7 +29,12 @@ export const checkIdMiddleware = async (req, res, next) => {
     if (!isIdValid) throw HttpError(404, "Not Found");
 
     const waterRecord = await getWaterRecordIdService(id);
-    if (!waterRecord) throw HttpError(404, "Not Found");
+
+    console.log(waterRecord.owner.toString());
+    console.log(req.user.id);
+
+    if (!waterRecord || waterRecord.owner.toString() !== req.user.id)
+      throw HttpError(404, "Not Found");
 
     req.water = waterRecord;
 

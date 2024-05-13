@@ -5,10 +5,11 @@ import { updateWaterController } from "../controllers/waterController.js";
 import { deleteWaterController } from "../controllers/waterController.js";
 import { checkWaterDataMiddleware } from "../middlewares/waterMiddleware.js";
 import { checkIdMiddleware } from "../middlewares/waterMiddleware.js";
+import { protect } from "../middlewares/userMiddleware.js";
 
 const router = Router();
 
-// спочатку має бути міделвара ПРОТЕКТ!
+router.use(protect);
 router.post("/day", checkWaterDataMiddleware, addWaterController);
 
 router.use("/day/:id", checkIdMiddleware);
