@@ -31,12 +31,15 @@ export const loginUserService = async ({ email, password }) => {
 
     if (!passwordIsValid) throw HttpError(401, "Email or password is wrong");
 
-    const token = signToken(user.id);
+    const accessToken = signToken(user.id, process.env.ACCESS_SECRET_KEY, process.env.ACCESS_EXPIRES_IN);
 
-    user.token = token;
+    const refreshToken = signToken(user.id, process.env.REFRESH_SECRET_KEY, process.env.REFRESH_EXPIRES_IN);
+
+    user.accessToken = accessToken;
+    user.refreshToken = refreshToken;
     await user.save();
 
-    return { user, token };
+    return { user, accessToken, refreshToken };
 };
 
 export const getUserByIdService = (id) => {
@@ -50,7 +53,8 @@ export const logoutUserService = async (userId) => {
         throw HttpError(401, "Unauthorized");
     }
 
-    user.token = null;
+    user.accessToken = null;
+    user.refreshToken = null;
 
     await user.save();
 };

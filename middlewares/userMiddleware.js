@@ -1,9 +1,9 @@
 import { ImageService } from "../services/imageServices.js";
-import { checkToken } from "../services/jwtServices.js";
+import { checkToken, signToken } from "../services/jwtServices.js";
 import { checkUserExistsService, getUserByIdService } from "../services/userServices.js";
 import HttpError from "../utils/HttpError.js";
 import { catchAsync } from "../utils/catchAsync.js";
-import { createUserDataValidator, logInUserDataValidator, updateUserValidator } from "../utils/userValidator.js";
+import { createUserDataValidator, logInUserDataValidator, refreshUserValidator, updateUserValidator } from "../utils/userValidator.js";
 
 export const checkCreateUserData = catchAsync(async (req, res, next) => {
     const { value, errors } = createUserDataValidator(req.body);
@@ -34,7 +34,7 @@ export const protect = catchAsync(async (req, res, next) => {
         req.headers.authorization?.startsWith("Bearer ") &&
         req.headers.authorization.split(" ")[1];
 
-    const userId = checkToken(token);
+    const userId = checkToken(token, process.env.ACCESS_SECRET_KEY);
 
     if (!userId) throw HttpError(401, "Unauthorized");
 
@@ -55,10 +55,42 @@ export const checkUpdateUserData = (req, res, next) => {
         throw HttpError(400, "Invalid user data", errors);
     }
 
-
     next();
 };
 
 export const uploadAvatar = ImageService.initUploadImageMiddleware("avatar");
 
+export const checkRefreshData = (req, res, next) => {
+    const { value, errors } = refreshUserValidator(req.body);
 
+    if (errors) {
+        throw HttpError(403, "Token invalid", errors);
+    }
+
+    next();
+};
+
+export const refreshUserData = catchAsync(async (req, res, next) => {
+    const token = req.body.refreshToken;
+
+    const userId = checkToken(token, process.env.REFRESH_SECRET_KEY);
+
+    if (!userId) throw HttpError(403, "Token invalid");
+
+    const currentUser = await getUserByIdService(userId);
+
+    if (!currentUser) throw HttpError(403, "Token invalid");
+
+    const accessToken = signToken(currentUser.id, process.env.ACCESS_SECRET_KEY, process.env.ACCESS_EXPIRES_IN);
+
+    const refreshToken = signToken(currentUser.id, process.env.REFRESH_SECRET_KEY, process.env.REFRESH_EXPIRES_IN);
+
+    currentUser.accessToken = accessToken;
+    currentUser.refreshToken = refreshToken;
+    await currentUser.save();
+
+    req.accessToken = accessToken;
+    req.refreshToken = refreshToken;
+
+    next();
+});

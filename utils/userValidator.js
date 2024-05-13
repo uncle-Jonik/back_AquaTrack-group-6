@@ -35,3 +35,12 @@ export const updateUserValidator = joiValidator((data) =>
         })
         .validate(data)
 );
+
+export const refreshUserValidator = joiValidator((data) =>
+    Joi.object()
+        .options({ abortEarly: false })
+        .keys({
+            refreshToken: Joi.string().required(),
+        })
+        .validate(data)
+);
