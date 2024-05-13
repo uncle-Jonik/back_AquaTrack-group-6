@@ -1,5 +1,4 @@
 import { Water } from "../models/waterModel.js";
-import { HttpError } from "../utils/HttpError.js";
 
 export const localDate = () => {
   const milliseconds = Date.now();
@@ -53,3 +52,14 @@ export const updateWaterRecordIdService = async (id, waterData) => {
 
   return waterRecord;
 };
+
+export const getDayWaterService = async (date, owner) => {
+  const allWaterRecord = await Water.find({
+    owner: owner.id,
+    localDate: date.localDate,
+  });
+
+  return allWaterRecord;
+};
+
+export const getMonthWaterService = async (date, owner) => {};

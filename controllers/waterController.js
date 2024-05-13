@@ -1,4 +1,6 @@
 import { addWaterService } from "../services/waterServices.js";
+import { getDayWaterService } from "../services/waterServices.js";
+import { getMonthWaterService } from "../services/waterServices.js";
 import { updateWaterRecordIdService } from "../services/waterServices.js";
 import { deleteWaterRecordIdService } from "../services/waterServices.js";
 
@@ -56,6 +58,32 @@ export const updateWaterController = async (req, res, next) => {
         waterValue: waterRecord.waterValue,
         owner: waterRecord.owner,
       },
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const getDayWaterController = async (req, res, next) => {
+  try {
+    const allWaterRecord = await getDayWaterService(req.body, req.user);
+
+    res.status(200).json({
+      msg: "GETED!",
+      waterRecord: allWaterRecord,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const getMonthWaterController = async (req, res, next) => {
+  try {
+    const allWaterRecord = await getMonthWaterService();
+
+    res.status(200).json({
+      msg: "GETED!",
+      waterRecord: {},
     });
   } catch (e) {
     next(e);

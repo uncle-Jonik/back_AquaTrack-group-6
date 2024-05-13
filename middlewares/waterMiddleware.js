@@ -2,7 +2,9 @@ import { Types } from "mongoose";
 
 import { HttpError } from "../utils/HttpError.js";
 import { checkWaterValidator } from "../schemas/waterValidator.js";
+import { checkAllWaterValidator } from "../schemas/waterValidator.js";
 import { dateNormalizer } from "../services/waterServices.js";
+import { localDate } from "../services/waterServices.js";
 import { getWaterRecordIdService } from "../services/waterServices.js";
 
 export const checkWaterDataMiddleware = (req, res, next) => {
@@ -13,7 +15,10 @@ export const checkWaterDataMiddleware = (req, res, next) => {
     if (value.localDate) {
       const localDate = dateNormalizer(value.localDate);
       req.body = { ...value, localDate };
+      return next();
     }
+
+    req.body = { localDate: localDate() };
 
     next();
   } catch (e) {
@@ -37,6 +42,25 @@ export const checkIdMiddleware = async (req, res, next) => {
       throw HttpError(404, "Not Found");
 
     req.water = waterRecord;
+
+    next();
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const checkAllWaterDataMiddleware = async (req, res, next) => {
+  try {
+    const { value, err } = checkAllWaterValidator(req.body);
+    if (err) throw HttpError(400, "Bad Request", err);
+
+    if (value.localDate) {
+      const localDate = dateNormalizer(value.localDate);
+      req.body = { localDate };
+      return next();
+    }
+
+    req.body = { localDate: localDate() };
 
     next();
   } catch (e) {
