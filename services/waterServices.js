@@ -61,7 +61,15 @@ export const getDayWaterService = async (date, owner) => {
     localDate: date.localDate,
   });
 
-  return allWaterRecord;
+  let totalDay = 0;
+  allWaterRecord.forEach((i) => (totalDay += i.waterValue));
+
+  if (totalDay !== Number(owner.waterRate) * 1000) {
+    const feasibility = (totalDay / (Number(owner.waterRate) * 1000)) * 100;
+    return { allWaterRecord, feasibility, completed: false };
+  }
+
+  return { allWaterRecord, feasibility: 100, completed: true };
 };
 
 export const getMonthWaterService = async (date, owner) => {

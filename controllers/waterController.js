@@ -69,10 +69,17 @@ export const updateWaterController = async (req, res, next) => {
 
 export const getDayWaterController = async (req, res, next) => {
   try {
-    const allWaterRecord = await getDayWaterService(req.body, req.user);
+    const { allWaterRecord, feasibility, completed } = await getDayWaterService(
+      req.body,
+      req.user
+    );
 
     res.status(200).json({
       msg: "GETED!",
+      waterRate: {
+        feasibility,
+        completed,
+      },
       waterRecord: allWaterRecord,
     });
   } catch (e) {
