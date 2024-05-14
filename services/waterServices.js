@@ -48,9 +48,13 @@ export const deleteWaterRecordIdService = async (id) => {
 };
 
 export const updateWaterRecordIdService = async (id, waterData) => {
-  const waterRecord = await Water.findByIdAndUpdate(id, waterData, {
-    new: true,
-  });
+  const localMonth = waterData.localDate.slice(3);
+
+  const waterRecord = await Water.findByIdAndUpdate(
+    id,
+    { ...waterData, localMonth },
+    { new: true }
+  );
 
   return waterRecord;
 };
