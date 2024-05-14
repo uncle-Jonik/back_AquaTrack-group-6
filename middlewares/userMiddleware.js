@@ -6,9 +6,9 @@ import { catchAsync } from "../utils/catchAsync.js";
 import { createUserDataValidator, logInUserDataValidator, refreshUserValidator, updateUserValidator } from "../schemas/userValidator.js";
 
 export const checkCreateUserData = catchAsync(async (req, res, next) => {
-    const { value, errors } = createUserDataValidator(req.body);
+    const { value, err } = createUserDataValidator(req.body);
 
-    if (errors) throw HttpError(401, "Invalid user data..", errors);
+    if (err) throw HttpError(401, "Invalid user data..", err);
 
     const userExists = await checkUserExistsService({ email: value.email });
 
@@ -20,9 +20,9 @@ export const checkCreateUserData = catchAsync(async (req, res, next) => {
 });
 
 export const checkLogInData = (req, res, next) => {
-    const { value, errors } = logInUserDataValidator(req.body);
+    const { value, err } = logInUserDataValidator(req.body);
 
-    if (errors) throw HttpError(401, "Unauthorized");
+    if (err) throw HttpError(401, "Unauthorized");
 
     req.body = value;
 
@@ -49,10 +49,10 @@ export const protect = catchAsync(async (req, res, next) => {
 });
 
 export const checkUpdateUserData = (req, res, next) => {
-    const { value, errors } = updateUserValidator(req.body);
+    const { value, err } = updateUserValidator(req.body);
 
-    if (errors) {
-        throw HttpError(400, "Invalid user data", errors);
+    if (err) {
+        throw HttpError(400, "Invalid user data", err);
     }
 
     next();
@@ -61,10 +61,10 @@ export const checkUpdateUserData = (req, res, next) => {
 export const uploadAvatar = ImageService.initUploadImageMiddleware("avatar");
 
 export const checkRefreshData = (req, res, next) => {
-    const { value, errors } = refreshUserValidator(req.body);
+    const { value, err } = refreshUserValidator(req.body);
 
-    if (errors) {
-        throw HttpError(403, "Token invalid", errors);
+    if (err) {
+        throw HttpError(403, "Token invalid", err);
     }
 
     next();
