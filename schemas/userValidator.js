@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { joiValidator } from "../utils/joiValidator.js";
 import { userGender } from "../constants/userGender.js";
+import { joiValidator } from "../utils/joiValidator.js";
 
 export const createUserDataValidator = joiValidator((data) =>
   Joi.object()

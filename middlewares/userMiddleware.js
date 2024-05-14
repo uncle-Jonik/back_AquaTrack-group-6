@@ -8,7 +8,9 @@ import { createUserDataValidator, logInUserDataValidator, refreshUserValidator, 
 export const checkCreateUserData = catchAsync(async (req, res, next) => {
     const { value, errors } = createUserDataValidator(req.body);
 
-    if (errors) throw HttpError(401, "Invalid user data..", errors);
+    if (errors) throw HttpError(401, "Invalid user data..");
+
+    console.log(errors);
 
     const userExists = await checkUserExistsService({ email: value.email });
 
