@@ -26,8 +26,11 @@ export const dateNormalizer = (dateValue) => {
   return arr;
 };
 
-export const addWaterService = async (waterData) => {
-  const waterRecord = await Water.create(waterData);
+//=================================================================================
+export const addWaterService = async (waterData, owner) => {
+  const localMonth = waterData.localDate.slice(3);
+
+  const waterRecord = await Water.create({ ...waterData, localMonth, owner });
 
   return waterRecord;
 };
@@ -45,9 +48,56 @@ export const deleteWaterRecordIdService = async (id) => {
 };
 
 export const updateWaterRecordIdService = async (id, waterData) => {
-  const waterRecord = await Water.findByIdAndUpdate(id, waterData, {
-    new: true,
-  });
+  const localMonth = waterData.localDate.slice(3);
+
+  const waterRecord = await Water.findByIdAndUpdate(
+    id,
+    { ...waterData, localMonth },
+    { new: true }
+  );
 
   return waterRecord;
+};
+
+export const getDayWaterService = async (date, owner) => {
+  const allWaterRecord = await Water.find({
+    owner: owner.id,
+    localDate: date.localDate,
+  });
+
+  let totalDay = 0;
+  allWaterRecord.forEach((i) => (totalDay += i.waterValue));
+
+  if (totalDay >= Number(owner.waterRate) * 1000)
+    return { allWaterRecord, feasibility: 100, completed: true };
+
+  const feasibility = (totalDay / (Number(owner.waterRate) * 1000)) * 100;
+  return { allWaterRecord, feasibility, completed: false };
+};
+
+export const getMonthWaterService = async (date, owner) => {
+  const allWaterRecord = await Water.find({
+    owner: owner.id,
+    localMonth: date.localDate.slice(3),
+  });
+
+  const result = allWaterRecord.reduce((acc, item) => {
+    let key = item.localDate;
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(item);
+    return acc;
+  }, {});
+
+  const sortedKeys = Object.keys(result).sort();
+
+  const sortedResult = {};
+  for (let key of sortedKeys) {
+    sortedResult[key] = result[key].sort((a, b) => {
+      return a.localTime.localeCompare(b.localTime);
+    });
+  }
+
+  return sortedResult;
 };
