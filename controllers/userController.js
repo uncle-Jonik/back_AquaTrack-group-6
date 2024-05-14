@@ -10,13 +10,14 @@ export const createUser = catchAsync(async (req, res) => {
 });
 
 export const loginUser = catchAsync(async (req, res) => {
-    const { user, token } = await loginUserService(req.body);
+    const { user, accessToken, refreshToken } = await loginUserService(req.body);
 
     res.status(200).json({
         user: {
             email: user.email
         },
-        token,
+        accessToken,
+        refreshToken
     });
 });
 
@@ -54,4 +55,13 @@ export const updateUser = catchAsync(async (req, res) => {
         waterRate: updatedUser.waterRate,
     });
 });
+
+export const refreshUser = (req, res) => {
+    const { refreshToken, accessToken } = req;
+
+    res.status(200).json({
+        accessToken,
+        refreshToken
+    });
+};
 

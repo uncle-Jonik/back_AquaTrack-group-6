@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
 import { model, Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 import { userGender } from "../constants/userGender.js";
 
@@ -15,7 +15,11 @@ const userSchema = Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    token: {
+    accessToken: {
+      type: String,
+      default: null,
+    },
+    refreshToken: {
       type: String,
       default: null,
     },
@@ -31,6 +35,7 @@ const userSchema = Schema(
     },
     avatar: {
       type: String,
+      default: null
     },
     weight: {
       type: String,
@@ -60,7 +65,9 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+
 userSchema.methods.checkUserPassword = (candidate, passwordHash) =>
   bcrypt.compare(candidate, passwordHash);
 
 export const User = model("User", userSchema);
+

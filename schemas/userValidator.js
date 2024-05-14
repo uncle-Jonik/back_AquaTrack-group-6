@@ -1,5 +1,4 @@
 import Joi from "joi";
-
 import { joiValidator } from "../utils/joiValidator.js";
 import { userGender } from "../constants/userGender.js";
 
@@ -33,6 +32,15 @@ export const updateUserValidator = joiValidator((data) =>
       weight: Joi.string(),
       sportsActivity: Joi.string(),
       waterRate: Joi.string(),
+    })
+    .validate(data)
+);
+
+export const refreshUserValidator = joiValidator((data) =>
+  Joi.object()
+    .options({ abortEarly: false })
+    .keys({
+      refreshToken: Joi.string().required(),
     })
     .validate(data)
 );
