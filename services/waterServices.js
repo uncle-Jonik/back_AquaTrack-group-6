@@ -64,12 +64,11 @@ export const getDayWaterService = async (date, owner) => {
   let totalDay = 0;
   allWaterRecord.forEach((i) => (totalDay += i.waterValue));
 
-  if (totalDay !== Number(owner.waterRate) * 1000) {
-    const feasibility = (totalDay / (Number(owner.waterRate) * 1000)) * 100;
-    return { allWaterRecord, feasibility, completed: false };
-  }
+  if (totalDay >= Number(owner.waterRate) * 1000)
+    return { allWaterRecord, feasibility: 100, completed: true };
 
-  return { allWaterRecord, feasibility: 100, completed: true };
+  const feasibility = (totalDay / (Number(owner.waterRate) * 1000)) * 100;
+  return { allWaterRecord, feasibility, completed: false };
 };
 
 export const getMonthWaterService = async (date, owner) => {
@@ -78,5 +77,23 @@ export const getMonthWaterService = async (date, owner) => {
     localMonth: date.localDate.slice(3),
   });
 
-  return allWaterRecord;
+  const result = allWaterRecord.reduce((acc, item) => {
+    let key = item.localDate;
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(item);
+    return acc;
+  }, {});
+
+  const sortedKeys = Object.keys(result).sort();
+
+  const sortedResult = {};
+  for (let key of sortedKeys) {
+    sortedResult[key] = result[key].sort((a, b) => {
+      return a.localTime.localeCompare(b.localTime);
+    });
+  }
+
+  return sortedResult;
 };
