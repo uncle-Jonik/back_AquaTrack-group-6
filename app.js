@@ -3,11 +3,16 @@ import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import swaggerUi from "swagger-ui-express"
+import { createRequire } from 'module';
 
 import { router as pingRouter } from "./routes/pingRoute.js";
 import { router as waterRouter } from "./routes/waterRoute.js";
 import { errorGlobalHandler } from "./utils/errorGlobalHandler.js";
 import { usersRouter } from "./routes/userRoute.js";
+
+const require = createRequire(import.meta.url);
+const swaggerDocument = require('./swagger.json');
 
 dotenv.config();
 
@@ -34,6 +39,8 @@ const pathPrefix = "/api";
 app.use(`${pathPrefix}/`, pingRouter);
 app.use(`${pathPrefix}/users`, usersRouter);
 app.use(`${pathPrefix}/water`, waterRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 // not-found-route

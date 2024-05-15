@@ -10,12 +10,9 @@ export const createUser = catchAsync(async (req, res) => {
 });
 
 export const loginUser = catchAsync(async (req, res) => {
-    const { user, accessToken, refreshToken } = await loginUserService(req.body);
+    const { accessToken, refreshToken } = await loginUserService(req.body);
 
     res.status(200).json({
-        user: {
-            email: user.email
-        },
         accessToken,
         refreshToken
     });
