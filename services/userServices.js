@@ -1,7 +1,7 @@
-import { User } from '../models/userModel.js';
-import { HttpError } from '../utils/HttpError.js';
-import { signToken } from './jwtServices.js';
-import { ImageService } from './imageServices.js';
+import { User } from "../models/userModel.js";
+import { HttpError } from "../utils/HttpError.js";
+import { signToken } from "./jwtServices.js";
+import { ImageService } from "./imageServices.js";
 
 export const checkUserExistsService = (filter) => {
   return User.exists(filter);
@@ -10,7 +10,7 @@ export const checkUserExistsService = (filter) => {
 export const createUserService = async (userData) => {
   const email = userData.email;
 
-  let name = email.split('@')[0];
+  let name = email.split("@")[0];
 
   name = name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -30,9 +30,17 @@ export const loginUserService = async ({ email, password }) => {
 
   if (!passwordIsValid) throw HttpError(401, "Email or password is wrong");
 
-  const accessToken = signToken(user.id, process.env.ACCESS_SECRET_KEY, process.env.ACCESS_EXPIRES_IN);
+  const accessToken = signToken(
+    user.id,
+    process.env.ACCESS_SECRET_KEY,
+    process.env.ACCESS_EXPIRES_IN
+  );
 
-  const refreshToken = signToken(user.id, process.env.REFRESH_SECRET_KEY, process.env.REFRESH_EXPIRES_IN);
+  const refreshToken = signToken(
+    user.id,
+    process.env.REFRESH_SECRET_KEY,
+    process.env.REFRESH_EXPIRES_IN
+  );
 
   user.accessToken = accessToken;
   user.refreshToken = refreshToken;
@@ -60,11 +68,15 @@ export const logoutUserService = async (userId) => {
 
 export const updateUserService = async (userData, user, file, userId) => {
   if (file) {
-    user.avatar = await ImageService.saveImage(file, userId, {
-      maxFileSize: 2,
-    }, "public",
+    user.avatar = await ImageService.saveImage(
+      file,
+      userId,
+      {
+        maxFileSize: 2,
+      },
+      "public",
       "avatars"
-    )
+    );
   }
 
   Object.keys(userData).forEach((key) => {
