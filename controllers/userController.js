@@ -73,10 +73,19 @@ export const updateUser = catchAsync(async (req, res) => {
 });
 
 export const refreshUser = (req, res) => {
-  const { refreshToken, accessToken } = req;
+  const { refreshToken, accessToken, currentUserRef } = req;
 
   res.status(200).json({
     accessToken,
     refreshToken,
+    user: {
+      avatarUrl: currentUserRef.avatar,
+      name: currentUserRef.name,
+      gender: currentUserRef.gender,
+      email: currentUserRef.email,
+      weight: currentUserRef.weight,
+      sportsActivity: currentUserRef.sportsActivity,
+      waterRate: currentUserRef.waterRate,
+    },
   });
 };
