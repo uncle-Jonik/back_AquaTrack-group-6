@@ -12,7 +12,7 @@ export const addWaterController = async (req, res, next) => {
     res.status(201).json({
       msg: "CREATED!",
       waterRecord: {
-        id: waterRecord.id,
+        _id: waterRecord.id,
         localMonth: waterRecord.localMonth,
         localDate: waterRecord.localDate,
         localTime: waterRecord.localTime,
@@ -32,7 +32,7 @@ export const deleteWaterController = async (req, res, next) => {
     res.status(200).json({
       msg: "DELETED!",
       waterRecord: {
-        id: waterRecord.id,
+        _id: waterRecord.id,
         localMonth: waterRecord.localMonth,
         localDate: waterRecord.localDate,
         localTime: waterRecord.localTime,
@@ -55,7 +55,7 @@ export const updateWaterController = async (req, res, next) => {
     res.status(201).json({
       msg: "UPDATED!",
       waterRecord: {
-        id: waterRecord.id,
+        _id: waterRecord.id,
         localMonth: waterRecord.localMonth,
         localDate: waterRecord.localDate,
         localTime: waterRecord.localTime,
