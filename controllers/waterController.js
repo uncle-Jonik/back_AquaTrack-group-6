@@ -6,6 +6,7 @@ import { deleteWaterRecordIdService } from "../services/waterServices.js";
 
 export const addWaterController = async (req, res, next) => {
   try {
+    console.log(req.body);
     const waterRecord = await addWaterService(req.body, req.user);
 
     res.status(201).json({

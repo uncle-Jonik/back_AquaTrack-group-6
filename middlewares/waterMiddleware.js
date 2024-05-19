@@ -12,13 +12,15 @@ export const checkWaterDataMiddleware = (req, res, next) => {
     const { value, err } = checkWaterValidator(req.body);
     if (err) throw HttpError(400, "Bad Request", err);
 
+    console.log(value);
+
     if (value.localDate) {
       const localDate = dateNormalizer(value.localDate);
       req.body = { ...value, localDate };
       return next();
     }
 
-    req.body = { localDate: localDate() };
+    req.body = { ...value, localDate: localDate() };
 
     next();
   } catch (e) {
