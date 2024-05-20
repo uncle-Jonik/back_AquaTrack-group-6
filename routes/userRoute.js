@@ -123,10 +123,36 @@
  *     responses:
  *       "204":
  *         description: No Content
- *       "400":
- *         description: Unauthorized
+ *       "401":
+ *         description: Bad request
+ *       "403":
+ *         description: Forbidden
  *
+ * /users/refresh:
+ *   post:
+ *     summary: Update Access Token using Refresh Token
+ *     tags: [User]
+ *     operationId: refreshUser
+ *     requestBody:
+ *       required: true
+ *       description: ''
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *             required:
+ *               - refreshToken
  *
+ *     responses:
+ *       "200":
+ *         description: OK
+ *       "401":
+ *         description: Bad request
+ *       "403":
+ *         description: Forbidden
  *
  *
  *
