@@ -10,7 +10,6 @@ import { router as pingRouter } from "./routes/pingRoute.js";
 import { router as waterRouter } from "./routes/waterRoute.js";
 import { errorGlobalHandler } from "./utils/errorGlobalHandler.js";
 import { usersRouter } from "./routes/userRoute.js";
-import { url } from "gravatar";
 
 dotenv.config();
 
@@ -55,10 +54,10 @@ const options = {
 
     servers: [
       {
-        url: "http://localhost:3001/",
+        url: "http://localhost:3001/api/",
       },
       {
-        url: "https://back-aquatrack-group-6.onrender.com/",
+        url: "https://back-aquatrack-group-6.onrender.com/api/",
       },
     ],
   },
