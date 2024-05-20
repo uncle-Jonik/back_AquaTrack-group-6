@@ -84,8 +84,31 @@
  *       "401":
  *         description: Invalid user data
  *
+ * /users/login:
+ *   post:
+ *     summary: Create user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       description: Created user object
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - password
  *
- *
+ *     responses:
+ *       "200":
+ *         description: LogIn
+ *       "401":
+ *         description: Invalid user data
  *
  *
  *
