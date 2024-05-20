@@ -62,6 +62,7 @@
  *   post:
  *     summary: Create user
  *     tags: [User]
+ *     operationId: createUser
  *     requestBody:
  *       required: true
  *       description: Created user object
@@ -86,11 +87,12 @@
  *
  * /users/login:
  *   post:
- *     summary: Create user
+ *     summary: Login user
  *     tags: [User]
+ *     operationId: loginUser
  *     requestBody:
  *       required: true
- *       description: Created user object
+ *       description: ''
  *       content:
  *         application/json:
  *           schema:
@@ -109,6 +111,20 @@
  *         description: LogIn
  *       "401":
  *         description: Invalid user data
+ *
+ * /users/logout:
+ *   get:
+ *     summary: Logs out current logged in user session
+ *     tags: [User]
+ *     operationId: logoutUser
+ *     description: This can only be done by the logged in user.
+ *     parameters: []
+ *
+ *     responses:
+ *       "204":
+ *         description: No Content
+ *       "400":
+ *         description: Unauthorized
  *
  *
  *
@@ -168,7 +184,7 @@ usersRouter.post("/register", checkCreateUserData, createUser);
 
 usersRouter.post("/login", checkLogInData, loginUser);
 
-usersRouter.post("/logout", protect, logoutUser);
+usersRouter.get("/logout", protect, logoutUser);
 
 usersRouter.post("/refresh", checkRefreshData, refreshUserData, refreshUser);
 
