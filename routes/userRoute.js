@@ -67,7 +67,7 @@
  *       required: true
  *       description: Created user object
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -94,7 +94,7 @@
  *       required: true
  *       description: ''
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -124,7 +124,7 @@
  *       "204":
  *         description: No Content
  *       "401":
- *         description: Bad request
+ *         description: Unauthorized
  *       "403":
  *         description: Forbidden
  *
@@ -137,7 +137,7 @@
  *       required: true
  *       description: ''
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -150,15 +150,68 @@
  *       "200":
  *         description: OK
  *       "401":
- *         description: Bad request
+ *         description: Unauthorized
+ *       "403":
+ *         description: Forbidden
+ *
+ * /users/current:
+ *   get:
+ *     summary: Update Access Token using Refresh Token
+ *     tags: [User]
+ *     operationId: currentUser
+ *     parameters: []
+ *     security:
+ *       - basicAuth: []
+ *
+ *     responses:
+ *       "200":
+ *         description: OK
  *       "403":
  *         description: Forbidden
  *
  *
  *
+ * /users/update:
+ *   put:
+ *     summary: Update user profile
+ *     tags: [User]
+ *     operationId: updateUser
+ *     requestBody:
+ *       required: true
+ *       description: ''
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               gender:
+ *                 type: string
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *               weight:
+ *                 type: string
+ *               sportsActivity:
+ *                 type: string
+ *               waterRate:
+ *                 type: string
  *
+ *     responses:
+ *       "200":
+ *         description: OK
+ *       "401":
+ *         description: Unauthorized
+ *       "403":
+ *         description: Forbidden
  *
- *
+ *components:
+ *  securitySchemes:
+ *    bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
  *
  *
  *
@@ -217,7 +270,7 @@ usersRouter.post("/refresh", checkRefreshData, refreshUserData, refreshUser);
 usersRouter.get("/current", protect, currentUser);
 
 usersRouter.put(
-  "/current",
+  "/update",
   protect,
   checkUpdateUserData,
   uploadAvatar,
