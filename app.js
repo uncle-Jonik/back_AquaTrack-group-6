@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 import { router as pingRouter } from "./routes/pingRoute.js";
 import { router as waterRouter } from "./routes/waterRoute.js";
@@ -28,13 +30,30 @@ app.use(cors());
 app.use(express.static("public"));
 
 /**
+ * SWAGER
+ */
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Hello World",
+      version: "0.1.0",
+    },
+  },
+  apis: ["./src/routes*.js"], // files containing annotations as above
+};
+
+const specs = swaggerJsdoc(options);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+/**
  * routes
  */
 const pathPrefix = "/api";
 app.use(`${pathPrefix}/`, pingRouter);
 app.use(`${pathPrefix}/users`, usersRouter);
 app.use(`${pathPrefix}/water`, waterRouter);
-
 
 // not-found-route
 app.all("*", (req, res) => {
@@ -46,6 +65,7 @@ app.use(errorGlobalHandler);
 /**
  * server-init
  */
+
 const port = Number(process.env.PORT);
 app.listen(port, () => {
   console.log(`Server is running. Use our API on port: ${port}`);
