@@ -184,6 +184,8 @@
  *           schema:
  *             type: object
  *             properties:
+ *               email:
+ *                 type: string
  *               name:
  *                 type: string
  *               gender:
@@ -212,25 +214,6 @@
  *      type: http
  *      scheme: bearer
  *      bearerFormat: JWT
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
  *
  *
  *
