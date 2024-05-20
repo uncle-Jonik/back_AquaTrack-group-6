@@ -10,6 +10,7 @@ import { router as pingRouter } from "./routes/pingRoute.js";
 import { router as waterRouter } from "./routes/waterRoute.js";
 import { errorGlobalHandler } from "./utils/errorGlobalHandler.js";
 import { usersRouter } from "./routes/userRoute.js";
+import { url } from "gravatar";
 
 dotenv.config();
 
@@ -36,10 +37,32 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Hello World",
+      title: "AquaTrack - swagger-doc",
       version: "0.1.0",
+
+      description:
+        "This is a simple AquaTrack API application built with Express and documented with Swagger.\nPerformed by group 6",
+
+      license: {
+        name: "GitHub Repo Back-end",
+        url: "https://github.com/uncle-Jonik/back_AquaTrack-group-6",
+      },
+      contact: {
+        name: "Git Hub Repo Front-end",
+        url: "https://github.com/uncle-Jonik/front_AquaTrack-group-6",
+      },
     },
+
+    servers: [
+      {
+        url: "http://localhost:3001/",
+      },
+      {
+        url: "https://back-aquatrack-group-6.onrender.com/",
+      },
+    ],
   },
+
   apis: ["./src/routes*.js"], // files containing annotations as above
 };
 
