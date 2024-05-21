@@ -1,31 +1,5 @@
 AquaTrack is an API designed to help users track their water intake and manage their user profiles. This application is built with Express and documented using Swagger. The project is managed by Group 6.
 
-Project Structure(controllers, middlewares, routes)
-
-├── controllers
-
-│ ├── pingController.js
-
-│ ├── userController.js
-
-│ └── waterController.js
-
-├── middlewares
-
-│ ├── pingMiddleware.js
-
-│ ├── userMiddleware.js
-
-│ └── waterMiddleware.js
-
-├── routes
-
-│ ├── pingRoute.js
-
-│ ├── userRoute.js
-
-│ └── waterRoute.js
-
 Routes
 
 Ping Route
