@@ -28,6 +28,11 @@
  *         waterValue:
  *           type: number
  *           description: emount of water drunk
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 /**
  * @swagger
@@ -55,7 +60,6 @@
  *                 type: number
  *             required:
  *               - waterValue
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -81,7 +85,6 @@
  *         required: true
  *         schema:
  *           type: string
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -106,7 +109,6 @@
  *         required: true
  *         schema:
  *           type: string
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -131,7 +133,6 @@
  *         required: true
  *         schema:
  *           type: string
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -160,7 +161,6 @@
  *             properties:
  *               localDate:
  *                 type: string
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -189,7 +189,6 @@
  *             properties:
  *               localDate:
  *                 type: string
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -201,20 +200,6 @@
  *         description: Forbidden
  *       "404":
  *         description: Water not found
- *
- *
- *
- *
- * securitySchemes:
- *   bearerAuth:
- *     type: http
- *     scheme: bearer
- *     bearerFormat: JWT
- *
- *
- *
- *
- *
  */
 import { Router } from "express";
 

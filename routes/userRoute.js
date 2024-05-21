@@ -52,6 +52,11 @@
  *           type: string
  *           default:  1.5
  *           description: User waterRate in "string"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 /**
  * @swagger
@@ -78,8 +83,6 @@
  *             required:
  *               - email
  *               - password
- *
- *
  *     responses:
  *       "201":
  *         description: Created
@@ -109,8 +112,6 @@
  *             required:
  *               - email
  *               - password
- *
- *
  *     responses:
  *       "200":
  *         description: LogIn
@@ -127,8 +128,6 @@
  *     operationId: logoutUser
  *     description: This can only be done by the logged in user.
  *     parameters: []
- *
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -159,8 +158,6 @@
  *                 type: string
  *             required:
  *               - refreshToken
- *
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -181,10 +178,8 @@
  *     operationId: currentUser
  *     description: This can only be done by the logged in user.
  *     parameters: []
- *
- *
  *     security:
- *       - basicAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
@@ -222,7 +217,6 @@
  *                 type: string
  *               waterRate:
  *                 type: string
- *
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -234,15 +228,6 @@
  *         description: Forbidden
  *       "404":
  *         description: Water not found
- *
- *
- * securitySchemes:
- *   bearerAuth:
- *     type: http
- *     scheme: bearer
- *     bearerFormat: JWT
- *
- *
  *
  */
 import { Router } from "express";
