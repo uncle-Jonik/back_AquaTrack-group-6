@@ -43,7 +43,7 @@
  *       required: true
  *       description: This can only be done by the logged in user.
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -56,6 +56,8 @@
  *             required:
  *               - waterValue
  *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "201":
  *         description: Created
@@ -80,6 +82,8 @@
  *         schema:
  *           type: string
  *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: Deleter
@@ -103,6 +107,8 @@
  *         schema:
  *           type: string
  *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "201":
  *         description: Updated
@@ -126,6 +132,8 @@
  *         schema:
  *           type: string
  *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "201":
  *         description: Updated
@@ -146,13 +154,15 @@
  *       required: true
  *       description: This can only be done by the logged in user.
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
  *               localDate:
  *                 type: string
  *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "201":
  *         description: Created
@@ -173,13 +183,15 @@
  *       required: true
  *       description: This can only be done by the logged in user.
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
  *               localDate:
  *                 type: string
  *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "201":
  *         description: Created
@@ -193,17 +205,11 @@
  *
  *
  *
- *
- *
- *
- *
- *
- *components:
- *  securitySchemes:
- *    bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
+ * securitySchemes:
+ *   bearerAuth:
+ *     type: http
+ *     scheme: bearer
+ *     bearerFormat: JWT
  *
  *
  *

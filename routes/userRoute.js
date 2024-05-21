@@ -67,7 +67,7 @@
  *       required: true
  *       description: Created user object
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -79,11 +79,15 @@
  *               - email
  *               - password
  *
+ *
  *     responses:
  *       "201":
  *         description: Created
  *       "401":
  *         description: Invalid user data
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/login:
  *   post:
@@ -94,7 +98,7 @@
  *       required: true
  *       description: ''
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -106,11 +110,15 @@
  *               - email
  *               - password
  *
+ *
  *     responses:
  *       "200":
  *         description: LogIn
  *       "401":
  *         description: Invalid user data
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/logout:
  *   get:
@@ -120,6 +128,9 @@
  *     description: This can only be done by the logged in user.
  *     parameters: []
  *
+ *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "204":
  *         description: No Content
@@ -127,6 +138,9 @@
  *         description: Unauthorized
  *       "403":
  *         description: Forbidden
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/refresh:
  *   post:
@@ -137,7 +151,7 @@
  *       required: true
  *       description: This can only be done by the logged in user.
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -146,6 +160,9 @@
  *             required:
  *               - refreshToken
  *
+ *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
@@ -153,6 +170,9 @@
  *         description: Unauthorized
  *       "403":
  *         description: Forbidden
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/current:
  *   get:
@@ -161,15 +181,17 @@
  *     operationId: currentUser
  *     description: This can only be done by the logged in user.
  *     parameters: []
+ *
+ *
  *     security:
  *       - basicAuth: []
- *
  *     responses:
  *       "200":
  *         description: OK
  *       "403":
  *         description: Forbidden
- *
+ *       "404":
+ *         description: Water not found
  *
  *
  * /users/update:
@@ -181,7 +203,7 @@
  *       required: true
  *       description: This can only be done by the logged in user.
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -201,6 +223,8 @@
  *               waterRate:
  *                 type: string
  *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
@@ -208,15 +232,15 @@
  *         description: Unauthorized
  *       "403":
  *         description: Forbidden
- *
- *components:
- *  securitySchemes:
- *    bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
+ *       "404":
+ *         description: Water not found
  *
  *
+ * securitySchemes:
+ *   bearerAuth:
+ *     type: http
+ *     scheme: bearer
+ *     bearerFormat: JWT
  *
  *
  *
