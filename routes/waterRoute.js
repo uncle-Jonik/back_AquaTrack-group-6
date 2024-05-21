@@ -1,3 +1,35 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Water:
+ *       type: object
+ *       required:
+ *         - owner
+ *         - waterValue
+ *       properties:
+ *         _id:
+ *           type: ObjectId
+ *           description: The auto-generated id of the Water
+ *         owner:
+ *           type: ObjectId
+ *           description: The auto-generated id of the User
+ *         localMonth:
+ *           type: string
+ *           description: current month
+ *         localDate:
+ *           type: string
+ *           default:  func
+ *           description: current day
+ *         localTime:
+ *           type: string
+ *           default:  func
+ *           description: current time
+ *         waterValue:
+ *           type: number
+ *           description: emount of water drunk
+ */
+
 import { Router } from "express";
 
 import { addWaterController } from "../controllers/waterController.js";
