@@ -198,7 +198,7 @@
  *       required: true
  *       description: This can only be done by the logged in user.
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
