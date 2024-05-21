@@ -36,6 +36,4 @@ POST /api/water/fullMonth: Gets water intake for a full month.
 
 Running the Server
 
-To start the server, use the following command:
-
-npm run dev
+To start the server, use the following command: npm run dev
