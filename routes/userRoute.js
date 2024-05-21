@@ -52,6 +52,11 @@
  *           type: string
  *           default:  1.5
  *           description: User waterRate in "string"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 /**
  * @swagger
@@ -67,7 +72,7 @@
  *       required: true
  *       description: Created user object
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -78,12 +83,14 @@
  *             required:
  *               - email
  *               - password
- *
  *     responses:
  *       "201":
  *         description: Created
  *       "401":
  *         description: Invalid user data
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/login:
  *   post:
@@ -94,7 +101,7 @@
  *       required: true
  *       description: ''
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -105,12 +112,14 @@
  *             required:
  *               - email
  *               - password
- *
  *     responses:
  *       "200":
  *         description: LogIn
  *       "401":
  *         description: Invalid user data
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/logout:
  *   get:
@@ -119,7 +128,8 @@
  *     operationId: logoutUser
  *     description: This can only be done by the logged in user.
  *     parameters: []
- *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "204":
  *         description: No Content
@@ -127,6 +137,9 @@
  *         description: Unauthorized
  *       "403":
  *         description: Forbidden
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/refresh:
  *   post:
@@ -135,9 +148,9 @@
  *     operationId: refreshUser
  *     requestBody:
  *       required: true
- *       description: ''
+ *       description: This can only be done by the logged in user.
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -145,7 +158,8 @@
  *                 type: string
  *             required:
  *               - refreshToken
- *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
@@ -153,22 +167,26 @@
  *         description: Unauthorized
  *       "403":
  *         description: Forbidden
+ *       "404":
+ *         description: Water not found
+ *
  *
  * /users/current:
  *   get:
  *     summary: Update Access Token using Refresh Token
  *     tags: [User]
  *     operationId: currentUser
+ *     description: This can only be done by the logged in user.
  *     parameters: []
  *     security:
- *       - basicAuth: []
- *
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
  *       "403":
  *         description: Forbidden
- *
+ *       "404":
+ *         description: Water not found
  *
  *
  * /users/update:
@@ -178,7 +196,7 @@
  *     operationId: updateUser
  *     requestBody:
  *       required: true
- *       description: ''
+ *       description: This can only be done by the logged in user.
  *       content:
  *         multipart/form-data:
  *           schema:
@@ -199,7 +217,8 @@
  *                 type: string
  *               waterRate:
  *                 type: string
- *
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
@@ -207,17 +226,8 @@
  *         description: Unauthorized
  *       "403":
  *         description: Forbidden
- *
- *components:
- *  securitySchemes:
- *    bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
- *
- *
- *
- *
+ *       "404":
+ *         description: Water not found
  *
  */
 import { Router } from "express";
