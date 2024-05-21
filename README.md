@@ -37,3 +37,43 @@ POST /api/water/fullMonth: Gets water intake for a full month.
 Running the Server
 
 The server will be running on the port specified in the .env file, and you can access the API at http://localhost:3001/api/. To start the server, use the following command: npm run dev
+
+AquaTrack - це API, розроблений, щоб допомогти користувачам відстежувати споживання води та керувати своїми профілями. Ця програма створена за допомогою Express та задокументована за допомогою Swagger. Проектом керує Група 6.
+
+Маршрути
+
+Пінговий маршрут
+
+GET /api/ping: Перевіряє, чи працює сервер.
+
+Маршрути користувачів
+
+POST /api/users/register: Реєструє нового користувача.
+
+POST /api/users/login: Входить в систему користувача.
+
+GET /api/users/logout: Виводить поточного користувача з системи.
+
+POST /api/users/refresh: Оновлює токен доступу за допомогою токена refresh.
+
+GET /api/users/current: Отримує профіль поточного користувача.
+
+PUT /api/users/update: Оновлення профілю користувача.
+
+Водні маршрути
+
+POST /api/water/day: Додає споживання води за день.
+
+PUT /api/water/day/:id: Оновлює споживання води для певного запису.
+
+PATCH /api/water/day/:id: Частково оновлює споживання води для певного запису.
+
+DELETE /api/water/day/:id: Видаляє певний запис про водозабір.
+
+POST /api/water/fullDay: Отримує споживання води за цілий день.
+
+POST /api/water/fullMonth: Отримує споживання води за повний місяць.
+
+Запуск сервера
+
+Сервер буде працювати на порту, вказаному у файлі .env, а доступ до API можна отримати за адресою http://localhost:3001/api/. Щоб запустити сервер, скористайтеся наступною командою: npm run dev
