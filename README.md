@@ -36,4 +36,4 @@ POST /api/water/fullMonth: Gets water intake for a full month.
 
 Running the Server
 
-To start the server, use the following command: npm run dev
+The server will be running on the port specified in the .env file, and you can access the API at http://localhost:3001/api/. To start the server, use the following command: npm run dev
