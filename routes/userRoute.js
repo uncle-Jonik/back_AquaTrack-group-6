@@ -135,7 +135,7 @@
  *     operationId: refreshUser
  *     requestBody:
  *       required: true
- *       description: ''
+ *       description: This can only be done by the logged in user.
  *       content:
  *         multipart/form-data:
  *           schema:
@@ -159,6 +159,7 @@
  *     summary: Update Access Token using Refresh Token
  *     tags: [User]
  *     operationId: currentUser
+ *     description: This can only be done by the logged in user.
  *     parameters: []
  *     security:
  *       - basicAuth: []
@@ -178,7 +179,7 @@
  *     operationId: updateUser
  *     requestBody:
  *       required: true
- *       description: ''
+ *       description: This can only be done by the logged in user.
  *       content:
  *         multipart/form-data:
  *           schema:

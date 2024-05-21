@@ -29,7 +29,53 @@
  *           type: number
  *           description: emount of water drunk
  */
-
+/**
+ * @swagger
+ * tags:
+ *   name: Water
+ *   description: Operations about water record
+ * /water/register:
+ *   post:
+ *     summary: Create water
+ *     tags: [Water]
+ *     operationId: createWaterRecord
+ *     requestBody:
+ *       required: true
+ *       description: This can only be done by the logged in user.
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               localDate:
+ *                 type: string
+ *               localTime:
+ *                 type: string
+ *               waterValue:
+ *                 type: number
+ *             required:
+ *               - waterValue
+ *
+ *     responses:
+ *       "201":
+ *         description: Created
+ *       "401":
+ *         description: Invalid user data
+ *       "403":
+ *         description: Forbidden
+ *
+ *components:
+ *  securitySchemes:
+ *    bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+ *
+ *
+ *
+ *
+ *
+ */
 import { Router } from "express";
 
 import { addWaterController } from "../controllers/waterController.js";
