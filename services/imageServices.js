@@ -55,7 +55,7 @@ export class ImageService {
 
         await fse.remove(path.join(avatarsFolderPath, fileName));
 
-        return resultUrl.url;
+        return resultUrl.secure_url;
     }
 
 
