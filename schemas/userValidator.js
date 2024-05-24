@@ -26,7 +26,7 @@ export const updateUserValidator = joiValidator((data) =>
   Joi.object()
     .options({ abortEarly: false })
     .keys({
-      name: Joi.string().min(2).max(30),
+      name: Joi.string().min(3).max(20),
       email: Joi.string().email(),
       gender: Joi.string().valid(...Object.values(userGender)),
       weight: Joi.string(),
